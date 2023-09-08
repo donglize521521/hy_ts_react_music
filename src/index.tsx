@@ -8,4 +8,5 @@ const obj = {
   name: 'coderwhy',
   age: 18
 }
+
 root.render(<App />)
