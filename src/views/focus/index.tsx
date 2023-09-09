@@ -5,7 +5,7 @@ interface IProps {
   children?: ReactNode
 }
 
-const Discover: FC<IProps> = () => {
-  return <div>Discover</div>
+const focus: FC<IProps> = () => {
+  return <div>focus</div>
 }
-export default memo(Discover)
+export default memo(focus)
