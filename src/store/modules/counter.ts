@@ -4,9 +4,16 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState: {
     count: 100,
-    message: 'Hello Redux'
+    message: 'Hello Redux',
+    address: '广州市',
+    height: 1.88
   },
-  reducers: {}
+  reducers: {
+    changeMessageAction(state, { payload }) {
+      state.message = payload
+    }
+  }
 })
 
+export const { changeMessageAction } = counterSlice.actions
 export default counterSlice.reducer
