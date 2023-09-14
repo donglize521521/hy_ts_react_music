@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import { useRoutes, Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch, shallowEqualApp } from './store'
 import routes from './router'
+import Demo2 from './views/demo/demo2'
 
 import { changeMessageAction } from './store/modules/counter'
 // import { IRootState } from './store'
@@ -36,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <div className="nav">
+        <Demo2 name="whd" age={18} />
         <Link to="/discover">发现音乐</Link>
         <Link to="/mine">我的音乐</Link>
         <Link to="/focus">关注</Link>
