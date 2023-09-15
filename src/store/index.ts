@@ -13,8 +13,12 @@ const store = configureStore({
     counter: counterReducer
   }
 })
+// 这种方式等同于下面两行的方式
+// const state = typeof store.getState
+// type stateType = typeof state
+
 type GetStateFnType = typeof store.getState
-export type IRootState = ReturnType<GetStateFnType>
+type IRootState = ReturnType<GetStateFnType>
 type DispatchType = typeof store.dispatch
 
 // useAppSelector的hook
