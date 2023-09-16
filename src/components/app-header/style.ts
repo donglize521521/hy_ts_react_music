@@ -11,6 +11,11 @@ export const HeaderWrapper = styled.div`
     justify-content: space-between;
   }
 
+  .divider {
+    height: 5px;
+    background-color: #c20c0c;
+  }
+
   /* ${(props) => props.theme.mixin.wrapv1} */
 `
 export const HeaderLeft = styled.div`

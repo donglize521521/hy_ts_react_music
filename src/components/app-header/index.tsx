@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { HeaderWrapper, HeaderLeft, HeaderRight } from './style'
 
 import headerTitles from '@/assets/data/header-titles.json'
@@ -10,9 +10,25 @@ interface IProps {
 }
 
 const AppHeader: FC<IProps> = () => {
+  // 定义组件内部状态
+  // 方式一
+  // 缺点：页面刷新处理逻辑有点问题
+  // const [currentIndex, setCurrentIndex] = useState(0)
+
+  // 组件展示逻辑
   function showItem(item: any) {
     if (item.type === 'path') {
-      return <Link to={item.link}>{item.title}</Link>
+      return (
+        <NavLink
+          to={item.link}
+          className={({ isActive }) => {
+            return isActive ? 'active' : undefined
+          }}
+        >
+          {item.title}
+          <i className="icon sprite_01"></i>
+        </NavLink>
+      )
     } else {
       return (
         <a href={item.link} rel="noreferrer" target="_blank">
@@ -40,6 +56,7 @@ const AppHeader: FC<IProps> = () => {
         </HeaderLeft>
         <HeaderRight>HeaderRight</HeaderRight>
       </div>
+      <div className="divider" />
     </HeaderWrapper>
   )
 }
