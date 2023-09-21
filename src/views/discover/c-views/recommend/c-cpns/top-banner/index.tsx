@@ -4,6 +4,7 @@ import type { ElementRef, FC, ReactNode } from 'react'
 import { shallowEqual } from 'react-redux'
 import { Carousel } from 'antd'
 import { BannerWrapper, BannerLeft, BannerRight, BannerControl } from './style'
+import classNames from 'classnames'
 
 interface IProps {
   children?: ReactNode
@@ -21,6 +22,9 @@ const TopBanner: FC<IProps> = () => {
     }),
     shallowEqual
   )
+  function handleBeforeChange() {
+    console.log('000')
+  }
   function handleAfterChange(current: number) {
     setCurrentIndex(current)
   }
@@ -44,9 +48,11 @@ const TopBanner: FC<IProps> = () => {
         <BannerLeft>
           <Carousel
             autoplay
+            dots={false}
             effect="fade"
             autoplaySpeed={3000}
             ref={bannerRef}
+            beforeChange={handleBeforeChange}
             afterChange={handleAfterChange}
           >
             {banners.map((item) => {
@@ -61,6 +67,19 @@ const TopBanner: FC<IProps> = () => {
               )
             })}
           </Carousel>
+          <ul className="dots">
+            {banners.map((item, index) => {
+              return (
+                <li key={item.imageUrl}>
+                  <span
+                    className={classNames('item', {
+                      active: index === currentIndex
+                    })}
+                  ></span>
+                </li>
+              )
+            })}
+          </ul>
         </BannerLeft>
         <BannerRight></BannerRight>
         <BannerControl>
