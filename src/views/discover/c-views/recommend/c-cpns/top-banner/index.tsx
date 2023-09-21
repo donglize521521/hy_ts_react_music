@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/store'
-import React, { memo, useRef } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import type { ElementRef, FC, ReactNode } from 'react'
 import { shallowEqual } from 'react-redux'
 import { Carousel } from 'antd'
@@ -11,7 +11,9 @@ interface IProps {
 
 const TopBanner: FC<IProps> = () => {
   /*定义内部的数据*/
+  const [currentIndex, setCurrentIndex] = useState(0)
   const bannerRef = useRef<ElementRef<typeof Carousel>>(null)
+
   /*从store中获取数据*/
   const { banners } = useAppSelector(
     (state) => ({
@@ -19,6 +21,9 @@ const TopBanner: FC<IProps> = () => {
     }),
     shallowEqual
   )
+  function handleAfterChange(current: number) {
+    setCurrentIndex(current)
+  }
   /**数据处理函数**/
   function handlePrevClick() {
     bannerRef.current?.prev()
@@ -26,11 +31,24 @@ const TopBanner: FC<IProps> = () => {
   function handleNextClick() {
     bannerRef.current?.next()
   }
+  let imageUrl = banners[currentIndex]?.imageUrl
+  if (imageUrl) {
+    imageUrl = `${imageUrl}?imageView&blur=40x20`
+  }
+  console.log(imageUrl)
   return (
-    <BannerWrapper>
+    <BannerWrapper
+      style={{ background: `url('${imageUrl}') center center/6000px` }}
+    >
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel autoplay autoplaySpeed={3000} ref={bannerRef}>
+          <Carousel
+            autoplay
+            effect="fade"
+            autoplaySpeed={3000}
+            ref={bannerRef}
+            afterChange={handleAfterChange}
+          >
             {banners.map((item) => {
               return (
                 <div className="banner-item" key={item.imageUrl}>
