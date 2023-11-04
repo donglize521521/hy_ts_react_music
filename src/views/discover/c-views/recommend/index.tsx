@@ -7,6 +7,7 @@ import {
 } from './store/recommend'
 import TopBanner from './c-cpns/top-banner'
 import HotRecommend from './c-cpns/hot-recommend'
+import NewAlbum from './c-cpns/new-album'
 import { RecommendWrapper } from './style'
 
 interface IProps {
@@ -28,7 +29,7 @@ const Recommend: FC<IProps> = () => {
       <div className="content wrap-v2">
         <div className="left">
           <HotRecommend />
-          left
+          <NewAlbum />
         </div>
         <div className="right">right</div>
       </div>
