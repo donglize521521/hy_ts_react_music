@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getBanners, getHotRecommend } from '../service/recommend'
+import { getBanners, getHotRecommend, getNewAlbum } from '../service/recommend'
 
 export const fetchBannerDataAction = createAsyncThunk(
   'banners',
@@ -15,7 +15,17 @@ export const fetchHotRecommendAction = createAsyncThunk(
   'hotRecommend',
   async (arg, { dispatch }) => {
     const res = await getHotRecommend(8)
-    dispatch(changeRecommendAction(res.result))
+    dispatch(changeRecommendsAction(res.result))
+    // console.log(res)
+    // return res.banners
+  }
+)
+
+export const fetchNewAlbumAction = createAsyncThunk(
+  'newAlbums',
+  async (arg, { dispatch }) => {
+    const res = await getNewAlbum()
+    dispatch(changeNewAlbumsAction(res))
     console.log(res)
     // return res.banners
   }
@@ -24,11 +34,13 @@ export const fetchHotRecommendAction = createAsyncThunk(
 interface IRecommendState {
   banners: any[]
   hotRecommends: any[]
+  newAlbums: any[]
 }
 
 const initialState: IRecommendState = {
   banners: [],
-  hotRecommends: []
+  hotRecommends: [],
+  newAlbums: []
 }
 
 const recommendSlice = createSlice({
@@ -38,8 +50,12 @@ const recommendSlice = createSlice({
     changeBannersAction(state, { payload }) {
       state.banners = payload
     },
-    changeRecommendAction(state, { payload }) {
+    changeRecommendsAction(state, { payload }) {
       state.hotRecommends = payload
+    },
+    changeNewAlbumsAction(state, { payload }) {
+      console.log(payload)
+      state.newAlbums = payload
     }
   }
   // 方式一：
@@ -58,6 +74,9 @@ const recommendSlice = createSlice({
   // }
 })
 
-export const { changeBannersAction, changeRecommendAction } =
-  recommendSlice.actions
+export const {
+  changeBannersAction,
+  changeRecommendsAction,
+  changeNewAlbumsAction
+} = recommendSlice.actions
 export default recommendSlice.reducer

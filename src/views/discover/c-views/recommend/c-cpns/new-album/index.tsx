@@ -1,6 +1,8 @@
+import { useAppSelector } from '@/store'
 import React, { memo } from 'react'
 import type { FC, ReactNode, ElementRef } from 'react'
 import { useRef } from 'react'
+import { shallowEqual } from 'react-redux'
 import { AlbumWrapper } from './style'
 import { Carousel } from 'antd'
 import AreaHeaderV1 from '@/components/area-header-v1'
@@ -20,6 +22,15 @@ const NewAlbum: FC<IProps> = () => {
     console.log('handleNextClick')
     bannerRef.current?.next()
   }
+  /*从store中获取数据*/
+  const { newAlbums } = useAppSelector(
+    (state) => ({
+      newAlbums: state.recommend.newAlbums
+    }),
+    shallowEqual
+  )
+
+  console.log(newAlbums)
   return (
     <AlbumWrapper>
       <AreaHeaderV1 title="新碟上架" moreLink="/discover/album" />
